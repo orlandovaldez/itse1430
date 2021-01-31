@@ -13,7 +13,10 @@ namespace Budget
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Budget");
+            Console.WriteLine("ITSE 1430");
+            Console.WriteLine("Semester 2021");
+            Console.WriteLine("Orlando Valdez");
         }
     }
 }
