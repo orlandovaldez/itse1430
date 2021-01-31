@@ -18,14 +18,18 @@ namespace Budget
             Console.WriteLine("Semester 2021");
             Console.WriteLine("Orlando Valdez");
 
-            Console.WriteLine("Account Name: ");
-            String accountName = Console.ReadLine();
+            Console.WriteLine("\nAccount Name: ");
+            string accountName = Console.ReadLine();
 
             while (String.IsNullOrEmpty(accountName))
             {
                 Console.WriteLine("Value is required");
                 accountName = Console.ReadLine();
             }
+            Console.WriteLine("Valid Account Name.\n");
+
+            Console.WriteLine("Account Number: ");
+
         }
     }
 }
