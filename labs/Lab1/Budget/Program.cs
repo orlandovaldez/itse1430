@@ -21,7 +21,7 @@ namespace Budget
 
         static string accountName;
         static string accountNumber;
-        static string startingBalance;
+        static decimal startingBalance;
 
         private static void PromptAccountInfo ()
         {
@@ -32,11 +32,36 @@ namespace Budget
             accountNumber = Console.ReadLine();
 
             Console.Write("Enter Starting Balance:  ");
-            startingBalance = Console.ReadLine();            
+            startingBalance = BalanceCheck(0);            
+        }
+
+        static decimal BalanceCheck(decimal minimumBalance )
+        {
+            do
+            {
+                //Check to see if the starting balance of account is greater than zero 
+                string startingBalance = Console.ReadLine();
+
+                if (Decimal.TryParse(startingBalance, out decimal result))
+                {
+                    if (result >= minimumBalance)
+                        return result;
+                    else
+                        DisplayError("Balance Must Be Greater Than 0");
+                } else
+                    DisplayError("Value Must Be Numeric.");
+
+            } while (true);
+        }
+
+        static void CheckDigit ()
+        {
+            string input = Console.ReadLine();
         }
 
         private static void BasicProgramInfo ()
         {
+            //Display user header at the beginning of the program
             Console.WriteLine("Budget");
             Console.WriteLine("ITSE 1430");
             Console.WriteLine("Semester 2021");
