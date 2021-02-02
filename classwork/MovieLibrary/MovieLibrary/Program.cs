@@ -12,14 +12,26 @@ namespace MovieLibrary
     {
         static void Main() //(string[] args)
         {
-            AddMovie();
+            bool done = false;
+            do
+            {
+                char option = DisplayMainMenu();
 
-            DisplayMainMenu();
+                if (option == 'A')
+                    AddMovie();
+                else if (option == 'V')
+                    ViewMovie();
+                else if (option == 'Q')
+                    done = true;
+               
+                else
+                    DisplayError("Unknown command");
+            } while (!done);
         }
         // modifiers* T identifier ( [parameters] ) { s* }
         //function declaration - function signature that tells the compiler a function exists 
         // function signature - function declaration + implementation
-        private static void DisplayMainMenu ()
+        private static char DisplayMainMenu ()
         {
             //Display output - equivalent to printf, cout
             //Console.Write();
@@ -27,13 +39,24 @@ namespace MovieLibrary
             Console.WriteLine("-------------");
 
             Console.WriteLine("A) dd Movie");
+            Console.WriteLine("V) iew Movie");
             Console.WriteLine("Q) uit");
 
             //Console Input
-            string input = Console.ReadLine();      // string Readline();
+            do
+            {
+                string input = Console.ReadLine();      // string Readline();
 
-            //TODO: Validate Input
-            //TODO: Return Selected Option
+                //TODO: Validate Input
+                if (input == "A" || input == "a")
+                    return 'A';
+                else if (input == "Q" || input == "q")
+                    return 'Q';
+                else if (input == "V" || input == "v")
+                    return 'V';
+
+                DisplayError("Invalid Option");
+            } while (true);
 
         }
 
@@ -42,47 +65,197 @@ namespace MovieLibrary
         {
             // title, release year, run length (min), description, rating
             Console.Write("Enter a title: ");
-            string title = Console.ReadLine();
+             title = Console.ReadLine();
 
             Console.Write("Enter an optional description: ");
-            string description = Console.ReadLine();
+             description = Console.ReadLine();
 
             Console.Write("Enter a release year: ");
-            int releaseYear = ReadInt32();
+             releaseYear = ReadInt32(1900);
 
             Console.Write("Enter the run length in minutes: ");
-            int runLength = ReadInt32();
+             runLength = ReadInt32(0);
 
             Console.Write("Enter the rating: ");
-            string rating = Console.ReadLine();
+             rating = Console.ReadLine();
 
             Console.Write("Is this a classic (Y/N)? ");
-            bool isClassic = ReadBoolean();
+             isClassic = ReadBoolean();
+
+            ViewMovie();
+        }
+
+        static string title;
+        static string description;
+        static int releaseYear;
+        static int runLength;
+        static string rating;
+        static bool isClassic;
+
+        static void ViewMovie ()
+        {
+            //TODO: Format
+            Console.WriteLine(title);
+            Console.WriteLine(description);
+            Console.WriteLine(releaseYear);
+            Console.WriteLine(runLength);
+            Console.WriteLine(rating);
+            Console.WriteLine(isClassic);
 
         }
 
+        // Reads a boolean value from the console
         static bool ReadBoolean ()
         {
-            ConsoleKeyInfo key = Console.ReadKey();
+            do
+            {
+                //ConsoleKeyInfo key = Console.ReadKey();
+                string input = Console.ReadLine();
 
-            //TODO: Handle key values
-            
-            return true;
+                //TODO: Case does not matter
+                // input == "Y" || "y" -: Not correct
+                if (input == "Y" || input == "y")
+                    return true;
+                else if (input == "N" || input == "n")
+                    return false;
+
+                DisplayError("Please enter either Y or N");
+            } while (true);
+        }
+
+        //Reads and integer value from the console
+        static int ReadInt32 ( )
+        {
+            return ReadInt32(Int32.MinValue);
         }
 
         //Reads an integer value
-        static int ReadInt32 ()
+        static int ReadInt32 ( int minimumValue )
         {
             //TODO: Handle min value
 
-            //TODO: Keep Prompting until valid value
-            string input = Console.ReadLine();
+            // WHILE statement 
+            //  while (Eb) S;
+            //    S executes 0 or more times (pretest)
+            // DO WHILE statement
+            //  do S while (Eb) ;
+            //    S executes at least once (posttest)
+            // break statment 
+            //      Only valid in loop contructs
+            //      immedialtely exits the current loop
+            // continue statement
+            //      only valid in loop constructs
+            //      immediately exits the current iteration and checks the loop again
 
-            //TODO: Fix so it doesnt crash if not integer
-            //Convert string to int 
-            int value = Int32.Parse(input); //atoi
+            do
+            {
+                //TODO: Keep Prompting until valid value
+                string input = Console.ReadLine();
 
-            return value;
+                //TODO: Fix so it doesnt crash if not integer
+                //Convert string to int 
+                //int value = Int32.Parse(input);   //atoi
+
+                // IF statement 
+                // if (Eb) S;
+                // if (Eb)
+                //    St
+                // else 
+                //    Sf;
+                // if (Eb_
+                //    St
+                // else if (Eb)
+                //     Stt;
+                // else
+                //    Sf;
+                //int result;
+                //if (Int32.TryParse(input, out result))
+                if (Int32.TryParse(input, out int result)) //Inline variable declaration
+                {
+                    //Make sure it is at least minValue
+                    if (result >= minimumValue)
+                        return result;
+                    else
+                        DisplayError("Value must be at least " + minimumValue);
+                }else
+                    DisplayError("Value must be numeric");
+            } while (true);
+        }
+
+        private static void DisplayError ( string message )
+        {
+            Console.WriteLine(message);
+        }
+
+        void DemoExpressions ()
+        {
+            //Arithmetic (op1 op op2) 
+            // op1 and op2 must be exact same type 
+            // If they are not then type coecerianm (compiler type casting - always safe )
+            //      double + int = double + double = double 
+            int result = 4 + 5;
+            result = 5 - 45;
+            result = 8 * 45;
+            result = 8 / 5; //Int divison : 1
+            result = 8 % 5; // result: 3    isEven ::= numlber % 2 == 0
+
+            result = 4 + 6 * 5; //4 + (6 * 5) = 34
+
+            //Logical (bool op bool => bool)
+            //      Not Same = same x && Y || z (x && Y) || z not X && (Y || Z)
+            bool logicalResult = true && true;  //Logical AND
+            logicalResult = true || true;       //Logical OR
+            logicalResult = !true;              //Logical !
+
+            // Relational (op1 rop op2 => bool)
+            bool relationalResult = 10 > 20;
+            relationalResult = 10 < 20;
+            relationalResult = 10 >= 20;
+            relationalResult = 10 <= 20;
+            relationalResult = 10 != 20;    //Not equal
+            relationalResult = 10 == 20;    //Equality
+
+            // Conditional 
+            //    E ? Et : Ef 
+            // if (E)
+            //    Et
+            // else 
+            //    Ef
+            // Et and Ef must be the exact same type 
+
+
+            // Misc
+            // assignment lvalue = E
+            //   right associative : equals the right side first then the left 
+            logicalResult = relationalResult = false;
+
+            // Prefix and postfix increment and decrements
+            result = 5;
+            int postfixinc = result++; //result += 1; original value of result 
+            int prefixinc = ++result;   //result += 1; result 
+            int postfixdec = result--;
+            int prefixdec = --result;
+
+            //Function calls 
+            //   Parameter ::= variable inside function definition used to store temporary value
+            //   Arguement ::= expression used to assign a value to a parameter 
+            //   Kinds of parameter ::= Foo(x)
+            //      Input (pass by value) - copies the arguement value into the parameter's memory location, two separate copies 
+            //          Foo(12);
+            //      Input/Output (pass by reference) - temporarily share the same memory location for two different variables
+            //          Foo(ref arg);
+            //      Output - Funciton caller provides space but hte function provides the value
+            //          Foo(out arg);
+            result = ReadInt32();
+            result = Int32.Parse("123");
+        }
+
+        //Input parameter - T name 
+        //Input/Output parameter = ref T name
+        //Output parameter - T name 
+        void Foo ( int inputParameter, ref double ioParameter, out bool result  )
+        {
+            result = false;
         }
 
         void DemoTypes ()
@@ -90,10 +263,10 @@ namespace MovieLibrary
             //Primitive types - types known by the compiler 
 
             //integrals - signed
-            // byte  | 1 byte  | -128 to 127
-            // short | 2 bytes | +-32K
-            // int   | 4 bytes | +-2 billion  | default
-            // long  | 8 bytes | really large | only for really large values 
+            // byte  | 1 byte  | -128 to 127            (SByte.Tryparse/Parse)
+            // short | 2 bytes | +-32K                  (Int16.TryParse/Parse)
+            // int   | 4 bytes | +-2 billion  | default (Int32.TryParse/Parse)
+            // long  | 8 bytes | really large | only for really large values ( Int64.TryParse/Parse
             sbyte sbyteValue = 10;  //int literal
             short shortValue = 10;  //int literal
             int hours = 20;
@@ -101,11 +274,11 @@ namespace MovieLibrary
             long anotherLong = 10L; // Long literal
 
             //integrals - unsigned 
-            // byte   | 1 byte  | 0 to 255
-            // ushort | 2 bytes | 0 to 64K
+            // byte   | 1 byte  | 0 to 255              (Byte.TryParse/Parse)
+            // ushort | 2 bytes | 0 to 64K              (uShort
             // uint   | 4 bytes | 0 ti 4 billion
             // ulong  | 8 bytes | really large
-            byte byteCode = 0xAF;
+            byte byteCode = 0xAF;                       
             ushort shortCode = 0X1045;
             uint hourCode = 0x145678;
             ulong longCode = 0b0010_1010_1111;
