@@ -26,13 +26,24 @@ namespace Budget
         private static void PromptAccountInfo ()
         {
             Console.Write("Enter Account Name:  ");
-            accountName = Console.ReadLine();
+            accountName = AccountNameCheck();
 
             Console.Write("Enter Account Number:    ");
             accountNumber = Console.ReadLine();
 
             Console.Write("Enter Starting Balance:  ");
             startingBalance = BalanceCheck(0);            
+        }
+
+        private static string AccountNameCheck ()
+        {
+            accountName = Console.ReadLine();
+            while (String.IsNullOrEmpty(accountName))
+            {
+                Console.WriteLine("Account Name Must Not Be Empty, Enter Valid Name");
+                accountName = Console.ReadLine();
+                
+            }return accountName;
         }
 
         static decimal BalanceCheck(decimal minimumBalance )
