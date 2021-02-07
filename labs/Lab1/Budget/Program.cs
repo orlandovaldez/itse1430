@@ -29,10 +29,28 @@ namespace Budget
             accountName = AccountNameCheck();
 
             Console.Write("Enter Account Number:    ");
-            accountNumber = Console.ReadLine();
+            accountNumber = AccountNumberValid();
 
             Console.Write("Enter Starting Balance:  ");
-            startingBalance = BalanceCheck(0);            
+            startingBalance = BalanceCheck(1);            
+        }
+
+        private static string AccountNumberValid ()
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                for (int index = 0; index < input.Length; ++index)
+                {
+                    if (!Char.IsDigit(input, index)) ;
+                    
+                }
+                DisplayError("Number must consist of only digits");
+
+
+
+
+            } while (true);
         }
 
         private static string AccountNameCheck ()
