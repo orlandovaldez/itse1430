@@ -25,9 +25,10 @@ namespace Budget
                 switch (mainMenuOption)
                 {
                     case 'A':
-                    Deposit(0); DepositDescribe();
+                    Deposit(0); DepositDescribe(); Console.WriteLine("Balance Has Been Updated.");
                     break;
                     case 'B':
+                    Withdraw(); Console.WriteLine("Balance Has Been Updated.");
                     break;
                     case 'Q':
                     break;
@@ -38,43 +39,59 @@ namespace Budget
 
         }
 
+        private static decimal Withdraw ()
+        {
+            do
+            {
+                // Asks User for withdrawl amount and adjusts balance accordingly.
+                Console.Write("Enter Withdrawl Amount: $ "); 
+                string withdrawlAmount = Console.ReadLine();
+
+                if (Decimal.TryParse(withdrawlAmount, out decimal result))
+                {
+                    if (minimumWithdraw <= accountBalance)
+                        return accountBalance = accountBalance - result;
+                    else if (withdrawlAmount ==  "0")
+                        DisplayMainMenu();
+                    else
+                        DisplayError("Error, Withdrawl amount greater than balance.");                        
+                } else
+                    DisplayError("Value Must Be Numeric.");
+            } while (true);
+        }
+
         private static string DepositDescribe ()
         {
             Console.Write("Enter Deposit Description: ");
-            
+
             depositDescribe = Console.ReadLine();
             while (String.IsNullOrEmpty(depositDescribe))
             {
                 Console.WriteLine("Descpription Required");
                 depositDescribe = Console.ReadLine();
-                Console.WriteLine("Balance Has Been Updated.");
             }
             return depositDescribe;
-
-            
-
         }
 
         private static decimal Deposit ( decimal minimumDeposit )
         {
             do
             {
-                Console.Write("Enter Deposit Amount: ");
+                // Asks User for thier deposit amount and adds to the account accordingly.
+                Console.Write("Enter Deposit Amount: $ ");
                 string depositAmount = Console.ReadLine();
 
                 if (Decimal.TryParse(depositAmount, out decimal result))
                 {
                     if (result >= minimumDeposit)
-                        return accountBalance = accountBalance + result;                 
+                        return accountBalance = accountBalance + result;
+                    else if (depositAmount == "0")
+                        DisplayMainMenu();
                     else
                         DisplayError("Deposit Must Be Greater Than 0");
                 } else
                     DisplayError("Value Must Be Numeric.");
             } while (true);
-
-
-            
-
             //TODO
             //Provide info for deposit 
             // Amount (As a positive number)
@@ -88,7 +105,7 @@ namespace Budget
         static decimal accountBalance;
         static decimal depositAmount;
         static string depositDescribe;
-
+        static decimal minimumWithdraw;
 
         static bool QuitProgram ()
         {
@@ -137,7 +154,7 @@ namespace Budget
 
         private static void AccountInfo ()
         {
-            Console.WriteLine("______________________________");
+            Console.WriteLine("***********************************");
             Console.WriteLine($"Account Name: {accountName}");
             Console.WriteLine($"Account Number: {accountNumber}");
             Console.WriteLine($"Account Balance: {accountBalance:C}");
