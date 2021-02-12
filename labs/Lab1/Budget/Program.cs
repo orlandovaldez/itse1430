@@ -31,6 +31,7 @@ namespace Budget
                     Withdraw(); Console.WriteLine("Balance Has Been Updated.");
                     break;
                     case 'Q':
+                    QuitProgram();
                     break;
 
                     default: DisplayError("Invalid Selection, Try Again"); break;
@@ -66,6 +67,8 @@ namespace Budget
             Console.Write("Enter Deposit Description: ");
 
             depositDescribe = Console.ReadLine();
+            if (depositAmount == "0")
+                DisplayMainMenu();
             while (String.IsNullOrEmpty(depositDescribe))
             {
                 Console.WriteLine("Descpription Required");
@@ -86,7 +89,7 @@ namespace Budget
                 if (Decimal.TryParse(depositAmount, out decimal result))
                 {
                     if (result >= minimumDeposit)
-                        return accountBalance = accountBalance + result;
+                        return accountBalance = accountBalance + result;                        
                     else if (depositAmount == "0")
                         DisplayMainMenu();
                     else
@@ -95,19 +98,15 @@ namespace Budget
                     DisplayError("Value Must Be Numeric.");
             } while (true);
             //TODO
-            //Provide info for deposit 
-            // Amount (As a positive number)
-            // Description (The Description of the transaction)
-
             //Extra: Category, Check Number, Date(MM/dd/yyyy)
         }
 
         static string accountName;
         static string accountNumber;
         static decimal accountBalance;
-        static decimal depositAmount;
         static string depositDescribe;
         static decimal minimumWithdraw;
+        static string depositAmount;
 
         static bool QuitProgram ()
         {
@@ -117,7 +116,7 @@ namespace Budget
             {
 
                 if (input == "Y" || input == "y")
-                    return true;
+                    Environment.Exit(0);
                 else if (input == "N" || input == "n")
                     return false;
                 else
@@ -152,7 +151,6 @@ namespace Budget
                 DisplayError("Invalid Selection, Try Again");
             } while (true);
         }
-
 
         private static void AccountInfo ()
         {
@@ -198,10 +196,6 @@ namespace Budget
                     //break;
                 }
                 return input;
-
-
-           
-
         }
 
         private static string AccountNameCheck ()
@@ -236,7 +230,6 @@ namespace Budget
 
             } while (true);
         }
-
 
         private static void BasicProgramInfo ()
         {
