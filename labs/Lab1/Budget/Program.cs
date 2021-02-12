@@ -178,7 +178,6 @@ namespace Budget
 
         private static string AccountNumberValid ()
         {
-            bool validNumber = false;
             string input = Console.ReadLine();
 
             
@@ -188,14 +187,16 @@ namespace Budget
                     {
 
                         DisplayError("Invalid Account Number");
-                        validNumber = false;
                     } else
                         Console.WriteLine("Number Accepted");
-                        validNumber = true;
 
-                    //break;
+                    break;
                 }
                 return input;
+            //TODO
+            //Validate AccountNumber to consist of only digits(0-9)
+            //Must be exactly 12 character long
+            //May not start or end with a zero
         }
 
         private static string AccountNameCheck ()
