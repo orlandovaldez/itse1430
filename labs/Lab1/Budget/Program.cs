@@ -44,7 +44,8 @@ namespace Budget
             do
             {
                 // Asks User for withdrawl amount and adjusts balance accordingly.
-                Console.Write("Enter Withdrawl Amount: $ "); 
+                Console.WriteLine("Enter 0 to Cancel");
+                Console.Write("Enter Withdrawl Amount: $ ");
                 string withdrawlAmount = Console.ReadLine();
 
                 if (Decimal.TryParse(withdrawlAmount, out decimal result))
@@ -78,6 +79,7 @@ namespace Budget
             do
             {
                 // Asks User for thier deposit amount and adds to the account accordingly.
+                Console.WriteLine("Enter 0 to Cancel");
                 Console.Write("Enter Deposit Amount: $ ");
                 string depositAmount = Console.ReadLine();
 
