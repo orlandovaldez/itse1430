@@ -12,7 +12,7 @@ namespace Budget
     class Program
     {
         static void Main ( string[] args )
-        {
+        { 
             BasicProgramInfo();
             PromptAccountInfo();
 
