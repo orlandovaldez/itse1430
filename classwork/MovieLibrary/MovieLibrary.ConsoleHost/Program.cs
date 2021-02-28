@@ -6,12 +6,14 @@
 
 using System;
 
-namespace MovieLibrary
+//Renamed to match project name
+namespace MovieLibrary.ConsoleHost
 {
-    class Program
+    class Program   //MovieLibrary.Program
     {
         static void Main() //(string[] args)
         {
+            //Fully qualified type name: System.Boolean     [namespace].[type]
             bool done = false;
             do
             {
@@ -70,7 +72,8 @@ namespace MovieLibrary
             //Display output - equivalent to printf, cout
             //Console.Write();
             Console.WriteLine("Movie Library"); // String literals are enclosed in double quotes
-            Console.WriteLine("-------------");
+            //Console.WriteLine("-------------");
+            Console.WriteLine("".PadLeft(20, '-'));
 
             Console.WriteLine("A) dd Movie");
             Console.WriteLine("V) iew Movie");
@@ -136,7 +139,7 @@ namespace MovieLibrary
         static int releaseYear;
         static int runLength;
         static string rating;
-        static bool isClassic;
+        static bool isClassic; 
 
         static void ViewMovie ()
         {
@@ -159,11 +162,26 @@ namespace MovieLibrary
                 //ConsoleKeyInfo key = Console.ReadKey();
                 string input = Console.ReadLine();
 
-                // Case does not matter
-                // input == "Y" || "y" -: Not correct
-                if (input == "Y" || input == "y")
+                //// Case does not matter
+                //// input == "Y" || "y" -: Not correct
+                ////Comparison 1
+                //if (input == "Y" || input == "y")
+                //    return true;
+                //else if (input == "N" || input == "n")
+                //    return false;
+
+                //Should use switch but will play around with comparison
+                //Not really recommended
+                //Comparison 2
+                //if (input.ToUpper() == "Y")
+                //    return true;
+                //else if (input.ToLower() == "n")
+                //    return false;
+
+                //Comparison 3 
+                if (String.Compare(input, "Y", true) == 0)
                     return true;
-                else if (input == "N" || input == "n")
+                else if (String.Compare(input, "N", true) == 0)
                     return false;
 
                 DisplayError("Please enter either Y or N");
@@ -317,6 +335,48 @@ namespace MovieLibrary
             decimal price = 8500;
             string priceString = price.ToString("C"); // $8,500.00
 
+            //Common String Functions
+            //  String.<function>
+            //  <string>.<function>
+            int len = priceString.Length; //Length, in chars, of the string . returns back the number of characters
+
+            // Casing 
+            var name = "Bob";
+            string upperName = name.ToUpper();  //Upper cases string
+            string lowerName = name.ToLower();  //Lower cases string
+
+            //Comparison 
+            // 1)"a" == "A" //false 
+            // int to boolean functions ::=
+            //      < 0 means a < b
+            //      == 0 means a == b
+            //      > 0 mean a > b
+            // 2)string.CompareTo(string) ==> int, case sensative
+            var areEqualStrings1 = name.CompareTo("bob") == 0;
+
+            // 3) String.Compare(str, str) => int
+            //    String.Compare(str, str, bool ) => int
+            var areEqualString2 = String.Compare(name, "bob") == 0;
+            var areEqualString3 = String.Compare(name, "bob", StringComparison.CurrentCultureIgnoreCase) == 0; // Case insensitive
+
+            // Padding / Trimming
+            //      <string.Trim() => string with all the whitespace removed from the front and back
+            //      <string.TrimStart() / TrimEnd() => only from the front and back
+            //      <string.PadLeft(width) / PadRight(width) => adds spaces until the given width
+            string trimmedString = name.Trim();
+            string trimmedPath = @"C:\Temp\test\folder1\".Trim('\\', ' ', '\t');
+
+            string paddedString = name.PadLeft(10);
+
+            // Manipulate Strings
+            string world = "Hello World".Substring(6);
+            string wor = "Hello World".Substring(6, 3);
+            int index = "Hello World".IndexOf(' ');
+
+            // Matching 
+            bool startsWithSlash = @"\Temp\test.txt".StartsWith('\\');
+            bool endsWithSlash = @"\Temp\test.txt".EndsWith('\\');
+
 
         }
         void DemoExpressions ()
@@ -380,6 +440,19 @@ namespace MovieLibrary
             //          Foo(out arg);
             result = ReadInt32();
             result = Int32.Parse("123");
+
+            // Primitave types in .NET map to framework types (Type Aliasing)
+            // int -> Int32
+            // double -> Double
+            // short -> Int16
+            // bool -> Boolean
+            // char -> Char
+            int int1 = 10;
+            Int32 int2 = 20;
+            int1 = int2;
+
+            //result = int.Parse("123"); //Int32.Parse("123");
+            
         }
 
         //Input parameter - T name 
@@ -472,7 +545,7 @@ namespace MovieLibrary
             int x = 10, y = 12;
 
             //Identifier rules
-            //1. Must start with letter or underscore 
+            //1. Must start with letter or underscore X
             //2. Consist of letters or digits or underscores 
             //3. Must be unique in scoper 
             //4. Cannot be a keyword 
