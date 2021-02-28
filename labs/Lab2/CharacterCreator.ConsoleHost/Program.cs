@@ -69,8 +69,10 @@ namespace CharacterCreator.ConsoleHost
 
                     case "Q":
                     case "q": return 'Q';
-                };
 
+
+                };
+                DisplayError("Invalid Selection, Try Again");
             } while (true);
         }
 
