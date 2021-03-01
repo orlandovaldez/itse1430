@@ -37,6 +37,24 @@ namespace CharacterCreator.ConsoleHost
             }while (!done);
         }
 
+        static void AddCharacter ()
+        {
+            Character character = new Character();
+
+            Console.Write("Enter Character Name: ");
+            character.name = Console.ReadLine();
+
+            Console.Write("Enter Character Profession: ");
+            character.profesion = Console.ReadLine();
+
+            Console.Write("Enter Character Race: ");
+            character.race = Console.ReadLine();
+
+            Console.Write("Enter Character Description(if any): ");
+            character.bio
+
+        }
+
         static bool QuitProgram ()
         {
             if (ReadBoolean("Are you sure you want to quit (Y/N)? "))
@@ -46,15 +64,19 @@ namespace CharacterCreator.ConsoleHost
 
         private static void DisplayError ( string message )
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
+            Console.ResetColor();
         }
 
         static char DisplayMainMenu ()
         {
             do
             {
-                Console.WriteLine("A) PlaceHolder ");
-                Console.WriteLine("B) PlaceHolder ");
+                Console.WriteLine("A) Add Character");
+                Console.WriteLine("B) Delete Character");
+                Console.WriteLine("C) Edit Character");
+                Console.WriteLine("D) View Character");
                 Console.WriteLine("Q) Quit Program ");
 
                 string menuInput = Console.ReadLine();
@@ -66,6 +88,12 @@ namespace CharacterCreator.ConsoleHost
 
                     case "B":
                     case "b": return 'B';
+
+                    case "C":
+                    case "c": return 'C';
+
+                    case "D":
+                    case "d": return 'D';
 
                     case "Q":
                     case "q": return 'Q';
