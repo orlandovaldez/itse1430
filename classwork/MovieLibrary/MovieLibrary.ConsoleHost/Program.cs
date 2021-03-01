@@ -4,16 +4,24 @@
  * Sample Implementation
  */
 
-using System;
+using System; //Bring into scope all the types defined in the given namespace
 
 //Renamed to match project name
+namespace MovieLibrary
+{
+    namespace ConsoleHost
+    { }
+}
 namespace MovieLibrary.ConsoleHost
 {
-    class Program   //MovieLibrary.Program
+    class Program   //MovieLibrary.ConsoleHost.Program
     {
         static void Main() //(string[] args)
         {
             //Fully qualified type name: System.Boolean     [namespace].[type]
+            // MovieLibrary.ConsoleHost.Boolean ( not found )
+            // MovieLibrary.Boolean (not found)
+            // System.Boolean (found)
             bool done = false;
             do
             {
@@ -112,46 +120,52 @@ namespace MovieLibrary.ConsoleHost
         //Get movie from user
         static void AddMovie ()
         {
+            // new T(); 
+            // Movie* movie = new Movie();
+            Movie movie = new Movie();
+            
+            //Member access operator
+            //  member-access ::= E . Member
+
             // title, release year, run length (min), description, rating
             Console.Write("Enter a title: ");
-             title = Console.ReadLine();
+             movie.title = Console.ReadLine();
 
             Console.Write("Enter an optional description: ");
-             description = Console.ReadLine();
+             movie.description = Console.ReadLine();
 
             Console.Write("Enter a release year: ");
-             releaseYear = ReadInt32(1900);
+             movie.releaseYear = ReadInt32(1900);
 
             Console.Write("Enter the run length in minutes: ");
-             runLength = ReadInt32(0);
+             movie.runLength = ReadInt32(0);
 
             Console.Write("Enter the rating: ");
-             rating = Console.ReadLine();
+             movie.rating = Console.ReadLine();
 
             Console.Write("Is this a classic (Y/N)? ");
-             isClassic = ReadBoolean();
+             movie.isClassic = ReadBoolean();
+
+            //Hiding the field movie
+            //this.movie = movie;
+            _movie = movie;
 
             ViewMovie();
         }
 
-        static string title;
-        static string description;
-        static int releaseYear;
-        static int runLength;
-        static string rating;
-        static bool isClassic; 
+        static Movie _movie;
 
         static void ViewMovie ()
         {
-            Console.WriteLine($"{title}({releaseYear})");
-            if (runLength >0)
-                Console.WriteLine($"Running Time: {runLength} minutes");
-            if (!String.IsNullOrEmpty(rating))
-                Console.WriteLine($"MPAA Rating: {rating}");
-            Console.WriteLine($"Classic? {(isClassic ? 'Y' : 'N')}");
+            Console.WriteLine($"{_movie.title}({_movie.releaseYear})");
+            if (_movie.runLength >0)
+                Console.WriteLine($"Running Time: {_movie.runLength} minutes");
+            if (!String.IsNullOrEmpty(_movie.rating))
+                Console.WriteLine($"MPAA Rating: {_movie.rating}");
+            Console.WriteLine($"Classic? {(_movie.isClassic ? 'Y' : 'N')}");
 
-            if (!String.IsNullOrEmpty(description))
-                Console.WriteLine(description);
+            if (!String.IsNullOrEmpty(_movie.description))
+                Console.WriteLine(_movie.description);
         }
 
         // Reads a boolean value from the console
