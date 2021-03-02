@@ -20,7 +20,7 @@ namespace CharacterCreator.ConsoleHost
             {
                 char mainMenuOption = DisplayMainMenu();
 
-                switch (DisplayMainMenu())
+                switch (mainMenuOption)
                 {
                     case 'A': AddCharacter();
                     break;
@@ -44,16 +44,16 @@ namespace CharacterCreator.ConsoleHost
             Character character = new Character();
 
             Console.Write("Enter Character Name: ");
-            character.name = Console.ReadLine();
-
+            character.Name = Console.ReadLine();
+            
             Console.Write("Enter Character Profession: ");
-            character.profesion = Console.ReadLine();
+            character.Profession = Console.ReadLine();
 
             Console.Write("Enter Character Race: ");
-            character.race = Console.ReadLine();
+            character.Race = Console.ReadLine();
 
             Console.Write("Enter Character Description(if any): ");
-            character.biography = Console.ReadLine();
+            character.Biography = Console.ReadLine();
 
             _character = character;
         }
@@ -61,7 +61,7 @@ namespace CharacterCreator.ConsoleHost
         static void ViewCharacter ()
         {
             //TODO: Finish up viewing character and attributes
-            Console.WriteLine($"{_character.name}");
+            Console.WriteLine($"{_character.Name}");
         }
 
         static bool QuitProgram ()
