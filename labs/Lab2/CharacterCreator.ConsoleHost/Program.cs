@@ -80,14 +80,15 @@ namespace CharacterCreator.ConsoleHost
 
         static char DisplayMainMenu ()
         {
+            Console.WriteLine("A) Add Character");
+            Console.WriteLine("B) Delete Character");
+            Console.WriteLine("C) Edit Character");
+            Console.WriteLine("D) View Character");
+            Console.WriteLine("Q) Quit Program ");
+
             do
             {
-                Console.WriteLine("A) Add Character");
-                Console.WriteLine("B) Delete Character");
-                Console.WriteLine("C) Edit Character");
-                Console.WriteLine("D) View Character");
-                Console.WriteLine("Q) Quit Program ");
-
+                
                 string menuInput = Console.ReadLine();
 
                 switch (menuInput)
