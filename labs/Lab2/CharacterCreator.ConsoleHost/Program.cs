@@ -22,11 +22,11 @@ namespace CharacterCreator.ConsoleHost
 
                 switch (DisplayMainMenu())
                 {
-                    case 'A':
+                    case 'A': AddCharacter();
                     break;
                     case 'B':
                     break;
-                    case 'C':
+                    case 'C': ViewCharacter();
                     break;
                     case 'Q': done = QuitProgram();
                     break;
@@ -36,6 +36,8 @@ namespace CharacterCreator.ConsoleHost
                 };
             }while (!done);
         }
+
+        static Character _character;
 
         static void AddCharacter ()
         {
@@ -51,8 +53,15 @@ namespace CharacterCreator.ConsoleHost
             character.race = Console.ReadLine();
 
             Console.Write("Enter Character Description(if any): ");
-            character.bio
+            character.biography = Console.ReadLine();
 
+            _character = character;
+        }
+
+        static void ViewCharacter ()
+        {
+            //TODO: Finish up viewing character and attributes
+            Console.WriteLine($"{_character.name}");
         }
 
         static bool QuitProgram ()
