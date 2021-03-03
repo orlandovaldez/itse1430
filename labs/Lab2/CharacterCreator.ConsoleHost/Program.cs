@@ -24,9 +24,11 @@ namespace CharacterCreator.ConsoleHost
                 {
                     case 'A': AddCharacter();
                     break;
-                    case 'B':
+                    case 'D':
                     break;
-                    case 'C': ViewCharacter();
+                    case 'E':
+                    break;
+                    case 'V': ViewCharacter();
                     break;
                     case 'Q': done = QuitProgram();
                     break;
@@ -45,23 +47,107 @@ namespace CharacterCreator.ConsoleHost
 
             Console.Write("Enter Character Name: ");
             character.Name = Console.ReadLine();
-            
-            Console.Write("Enter Character Profession: ");
-            character.Profession = Console.ReadLine();
 
-            Console.Write("Enter Character Race: ");
+            Console.Write("Choose Character Profession: (Fighter, Hunter, Priest, Rogue, Wizard) ");
+            character.Profession = CharacterProfession();
+
+            Console.Write("Choose Character Race: (Dwarf, Elf, Gnome, Half Elf, Human)");
             character.Race = Console.ReadLine();
 
             Console.Write("Enter Character Description(if any): ");
             character.Biography = Console.ReadLine();
 
+            Console.WriteLine("Enter Character Attributes");
+
+
+            Console.WriteLine("Strength: ");
+            character.Strength = ReadInt32();
+
+            Console.WriteLine("Intelligence: ");
+            character.Intelligence = ReadInt32();
+
+            Console.WriteLine("Agility: ");
+            character.Agility = ReadInt32();
+
+            Console.WriteLine("Constitution: ");
+            character.Constitution = ReadInt32();
+
+            Console.WriteLine("Charisma: ");
+            character.Charisma = ReadInt32();
+
+
             _character = character;
         }
 
+        static string CharacterProfession ()
+        {
+
+            do
+            {
+
+                string professionInput = Console.ReadLine();
+
+                switch (professionInput)
+                {
+                    case "Fighter":
+                    case "fighter": return "Fighter";
+
+                    case "Hunter":
+                    case "hunter": return "Hunter";
+
+                    case "Rogue ":
+                    case "rogue ": return "Rogue ";
+
+                    case "Priest":
+                    case "priest": return "Priest";
+
+                    case "Wizard":
+                    case "wizard": return "Wizard";
+
+                };
+                DisplayError("Invalid Profession, Try Again.");
+            } while (true);
+        }
+
+        //static string CharacterRace ()
+        //{
+        //    do
+        //    {
+        //        string raceInput = Console.ReadLine();
+
+        //        switch (raceInput)
+        //        {
+        //            case "Dwarf"
+        //        };
+        //        DisplayError("Invalid Race, Try Again.");
+        //    } while (true);
+        //}
+
         static void ViewCharacter ()
         {
-            //TODO: Finish up viewing character and attributes
-            Console.WriteLine($"{_character.Name}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("".PadLeft(40, '-'));
+
+            Console.WriteLine($"Character Name: {_character.Name}");
+
+            Console.WriteLine($"Character Profession: {_character.Profession}");
+
+            Console.WriteLine($"Character Race: {_character.Race}");
+
+            if (!String.IsNullOrEmpty(_character.Biography))
+                Console.WriteLine($"Character Details: {_character.Biography} ");
+
+            Console.WriteLine("Attributes");
+            Console.WriteLine($"Strength:     {_character.Strength}");
+            Console.WriteLine($"Intelligence: {_character.Intelligence}");
+            Console.WriteLine($"Agility:      {_character.Agility}");
+            Console.WriteLine($"Constitution: {_character.Constitution}");
+            Console.WriteLine($"Charisma:     {_character.Charisma}");
+
+            Console.WriteLine("".PadLeft(40, '-'));
+
+            Console.ResetColor();
+
         }
 
         static bool QuitProgram ()
@@ -71,6 +157,22 @@ namespace CharacterCreator.ConsoleHost
             return false;
         }
 
+        static int ReadInt32 ( int minValue = 0, int maxValue = 100 )
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                if (String.IsNullOrEmpty(input))
+                    input = "";
+               
+                int result;
+
+                if (Int32.TryParse(input, out result) && result >= minValue && result <= maxValue)
+                    return result;
+
+                DisplayError($"Value Must Be Between {minValue} - {maxValue}.");
+            } while (true);
+        }
         private static void DisplayError ( string message )
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -80,10 +182,13 @@ namespace CharacterCreator.ConsoleHost
 
         static char DisplayMainMenu ()
         {
+            Console.WriteLine("Character Creator");
+            Console.WriteLine("".PadLeft(40, '*'));
+
             Console.WriteLine("A) Add Character");
-            Console.WriteLine("B) Delete Character");
-            Console.WriteLine("C) Edit Character");
-            Console.WriteLine("D) View Character");
+            Console.WriteLine("D) Delete Character");
+            Console.WriteLine("E) Edit Character");
+            Console.WriteLine("V) View Character");
             Console.WriteLine("Q) Quit Program ");
 
             do
@@ -96,14 +201,14 @@ namespace CharacterCreator.ConsoleHost
                     case "A":
                     case "a": return 'A';
 
-                    case "B":
-                    case "b": return 'B';
-
-                    case "C":
-                    case "c": return 'C';
-
                     case "D":
                     case "d": return 'D';
+
+                    case "E":
+                    case "e": return 'E';
+
+                    case "V":
+                    case "v": return 'V';
 
                     case "Q":
                     case "q": return 'Q';
