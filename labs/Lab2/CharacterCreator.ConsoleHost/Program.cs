@@ -46,15 +46,15 @@ namespace CharacterCreator.ConsoleHost
             Character character = new Character();
 
             Console.Write("Enter Character Name: ");
-            character.Name = Console.ReadLine();
+            character.Name = CharacterName();
 
-            Console.Write("Choose Character Profession: (Fighter, Hunter, Priest, Rogue, Wizard) ");
+            Console.WriteLine("Choose Character Profession (Fighter, Hunter, Priest, Rogue, Wizard):  ");
             character.Profession = CharacterProfession();
 
-            Console.Write("Choose Character Race: (Dwarf, Elf, Gnome, Half Elf, Human)");
-            character.Race = Console.ReadLine();
+            Console.WriteLine("Choose Character Race (Dwarf, Elf, Gnome, Half Elf, Human):  ");
+            character.Race = CharacterRace();
 
-            Console.Write("Enter Character Description(if any): ");
+            Console.WriteLine("Enter Character Description(if any): ");
             character.Biography = Console.ReadLine();
 
             Console.WriteLine("Enter Character Attributes");
@@ -79,6 +79,16 @@ namespace CharacterCreator.ConsoleHost
             _character = character;
         }
 
+        static string CharacterName ()
+        {
+            do
+            {
+                string nameInput = Console.ReadLine();
+                if (!String.IsNullOrEmpty(nameInput)) 
+                    return nameInput;
+                DisplayError("Name Cannot Be Empty, Try Again");
+            } while (true);
+        }
         static string CharacterProfession ()
         {
 
@@ -109,19 +119,34 @@ namespace CharacterCreator.ConsoleHost
             } while (true);
         }
 
-        //static string CharacterRace ()
-        //{
-        //    do
-        //    {
-        //        string raceInput = Console.ReadLine();
+        static string CharacterRace ()
+        {
+            do
+            {
+                string raceInput = Console.ReadLine();
 
-        //        switch (raceInput)
-        //        {
-        //            case "Dwarf"
-        //        };
-        //        DisplayError("Invalid Race, Try Again.");
-        //    } while (true);
-        //}
+                switch (raceInput)
+                {
+                    case "Dwarf":
+                    case "dwarf": return "Dwarf";
+
+                    case "Elf":
+                    case "elf": return "Elf";
+
+                    case "Half Elf":
+                    case "HalfElf":
+                    case "half elf":
+                    case "halfelf":
+                    case "half Elf":
+                    case "Half elf": return "Half Elf";
+
+                    case "Human":
+                    case "human": return "Human";
+                    
+                };
+                DisplayError("Invalid Race, Try Again.");
+            } while (true);
+        }
 
         static void ViewCharacter ()
         {
