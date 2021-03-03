@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * CharacterCreator.ConsoleHost
+ * ITSE 1430
+ * Semester 2021
+ * Orlando Valdez
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -118,7 +124,7 @@ namespace CharacterCreator
         }
         private int _constitution;
 
-        /// <summary>Gets or Sets Charisma Attribute.</summary>
+        /// <summary>Gets or Sets Strength Attribute.</summary>
 
         public int Charisma
         {

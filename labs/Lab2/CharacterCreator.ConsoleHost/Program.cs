@@ -24,9 +24,9 @@ namespace CharacterCreator.ConsoleHost
                 {
                     case 'A': AddCharacter();
                     break;
-                    case 'D':
+                    case 'D': DeleteCharacter();
                     break;
-                    case 'E':
+                    case 'E': EditCharacter();
                     break;
                     case 'V': ViewCharacter();
                     break;
@@ -100,18 +100,23 @@ namespace CharacterCreator.ConsoleHost
                 switch (professionInput)
                 {
                     case "Fighter":
+                    case "FIGHTER":
                     case "fighter": return "Fighter";
 
                     case "Hunter":
+                    case "HUNTER":
                     case "hunter": return "Hunter";
 
-                    case "Rogue ":
-                    case "rogue ": return "Rogue ";
+                    case "Rogue":
+                    case "ROGUE":
+                    case "rogue": return "Rogue";
 
                     case "Priest":
+                    case "PRIEST":
                     case "priest": return "Priest";
 
                     case "Wizard":
+                    case "WIZARD":
                     case "wizard": return "Wizard";
 
                 };
@@ -146,6 +151,20 @@ namespace CharacterCreator.ConsoleHost
                 };
                 DisplayError("Invalid Race, Try Again.");
             } while (true);
+        }
+
+        static void  DeleteCharacter()
+        {
+            ViewCharacter();
+            //if (ReadBoolean("Are you sure you want to delete character (Y/N)? "))
+            //    return true;
+            
+            //return false;
+        }
+
+        static void EditCharacter()
+        {
+
         }
 
         static void ViewCharacter ()
