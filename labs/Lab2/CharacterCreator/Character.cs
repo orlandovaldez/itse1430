@@ -72,69 +72,23 @@ namespace CharacterCreator
         private string _biography = "";
 
         /// <summary>Gets or Sets Strength Attribute.</summary>
-        public int Strength
-        {
-            get 
-            {
-                return _strength;
-            }
-            set 
-            {
-                _strength = value;
-            }
-        }
-        private int _strength;
+        public int Strength { get; set; }
 
         /// <summary>Gets or Sets Intelligence Attribute.</summary>
 
-        public int Intelligence
-        {
-            get {
-                return _intelligence;
-            }
-            set {
-                _intelligence = value;
-            }
-        }
-        private int _intelligence;
-
+        public int Intelligence { get; set; }
+        
         /// <summary>Gets or Sets Agility Attribute.</summary>
 
-        public int Agility
-        {
-            get {
-                return _agility;
-            }
-            set {
-                _agility = value;
-            }
-        }
-        private int _agility;
-
+        public int Agility { get; set; }
+        
         /// <summary>Gets or Sets Constitution Attribute.</summary>
 
-        public int Constitution
-        {
-            get {
-                return _constitution;
-            }
-            set {
-                _constitution = value;
-            }
-        }
-        private int _constitution;
-
+        public int Constitution { get; set; }
+        
         /// <summary>Gets or Sets Strength Attribute.</summary>
 
-        public int Charisma
-        {
-            get {
-                return _charisma;
-            }
-            set {
-                _charisma = value;
-            }
-        }
-        public int _charisma;
+        public int Charisma { get; set; }        
+        
     }
 }

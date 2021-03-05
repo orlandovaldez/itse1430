@@ -75,6 +75,10 @@ namespace CharacterCreator.ConsoleHost
             Console.WriteLine("Charisma: ");
             character.Charisma = ReadInt32();
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Character Saved Successfully!");
+            Console.ResetColor();
+
 
             _character = character;
         }
@@ -147,6 +151,9 @@ namespace CharacterCreator.ConsoleHost
 
                     case "Human":
                     case "human": return "Human";
+
+                    case "Gnome":
+                    case "gnome": return "Gnome";
                     
                 };
                 DisplayError("Invalid Race, Try Again.");
@@ -164,7 +171,144 @@ namespace CharacterCreator.ConsoleHost
 
         static void EditCharacter()
         {
+            bool done = false;
+            do
+            {
+                char editOption = DisplayEditMenu();
 
+                switch (editOption)
+                {
+                    case 'A':
+                    Console.Write("Enter Character Name: ");
+                    _character.Name = CharacterName();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'B':
+                    Console.WriteLine("Choose Character Profession (Fighter, Hunter, Priest, Rogue, Wizard):  ");
+                    _character.Profession = CharacterProfession();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'C':
+                    Console.WriteLine("Choose Character Race (Dwarf, Elf, Gnome, Half Elf, Human):  ");
+                    _character.Race = CharacterRace();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'D':
+                    Console.WriteLine("Enter Character Description(if any): ");
+                    _character.Biography = Console.ReadLine();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'E':
+                    Console.WriteLine("Strength: ");
+                    _character.Strength = ReadInt32();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'F':
+                    Console.WriteLine("Intelligence: ");
+                    _character.Intelligence = ReadInt32();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'G':
+                    Console.WriteLine("Agility: ");
+                    _character.Agility = ReadInt32();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'H':
+                    Console.WriteLine("Constitution: ");
+                    _character.Constitution = ReadInt32();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+                    case 'I':
+                    Console.WriteLine("Charisma: ");
+                    _character.Charisma = ReadInt32();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Edit Saved Successfully!");
+                    Console.ResetColor();
+                    break;
+
+                    case 'M':
+                    done = true; QuitProgram();
+                    break;
+
+                    default: DisplayError("Invalid Selection, Try Again.");
+                    break;
+                };
+            } while (!done);
+
+        }
+
+        static char DisplayEditMenu ()
+        {
+            ViewCharacter();
+            Console.WriteLine("Character Editor");
+            Console.WriteLine("".PadLeft(40, '*'));
+
+            Console.WriteLine("A) Edit Name ");
+            Console.WriteLine("B) Edit Profession");
+            Console.WriteLine("C) Edit Race");
+            Console.WriteLine("D) Edit Biography");
+            Console.WriteLine("E) Edit Strength");
+            Console.WriteLine("F) Edit Intelligence");
+            Console.WriteLine("G) Edit Agility");
+            Console.WriteLine("H) Edit Constitution");
+            Console.WriteLine("I) Edit Charisma\n");
+
+            Console.WriteLine("M) Return To Main Menu");
+                    
+            do
+            {
+                string editInput = Console.ReadLine();
+
+                switch (editInput)
+                {
+                    case "A":
+                    case "a": return 'A';
+
+                    case "B":
+                    case "b": return 'B';
+
+                    case "C":
+                    case "c": return 'C';
+
+                    case "D":
+                    case "d": return 'D';
+
+                    case "E":
+                    case "e": return 'E';
+
+                    case "F":
+                    case "f": return 'F';
+
+                    case "G":
+                    case "g": return 'G';
+
+                    case "H":
+                    case "h": return 'H';
+
+                    case "I":
+                    case "i": return 'I';
+
+                    case "M":
+                    case "m": return 'M';
+                };
+                DisplayError("Invalid Selection, Try Again");
+            } while (true);
         }
 
         static void ViewCharacter ()
@@ -172,8 +316,9 @@ namespace CharacterCreator.ConsoleHost
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("".PadLeft(40, '-'));
 
-            Console.WriteLine($"Character Name: {_character.Name}");
 
+            Console.WriteLine($"Character Name: {_character.Name}");
+            
             Console.WriteLine($"Character Profession: {_character.Profession}");
 
             Console.WriteLine($"Character Race: {_character.Race}");
@@ -226,6 +371,8 @@ namespace CharacterCreator.ConsoleHost
 
         static char DisplayMainMenu ()
         {
+            Console.WriteLine(" ");
+            Console.WriteLine("".PadLeft(40, '*'));
             Console.WriteLine("Character Creator");
             Console.WriteLine("".PadLeft(40, '*'));
 
@@ -236,8 +383,7 @@ namespace CharacterCreator.ConsoleHost
             Console.WriteLine("Q) Quit Program ");
 
             do
-            {
-                
+            {                
                 string menuInput = Console.ReadLine();
 
                 switch (menuInput)
