@@ -27,7 +27,7 @@ namespace CharacterCreator
                 _name = value;
             }
         }
-        private string _name = "";
+        private string _name = " ";
 
         /// <summary>Gets or Sets Character Name.</summary>
         public string Profession
@@ -72,23 +72,23 @@ namespace CharacterCreator
         private string _biography = "";
 
         /// <summary>Gets or Sets Strength Attribute.</summary>
-        public int Strength { get; set; }
+        public int Strength { get; set; } = 0;
 
         /// <summary>Gets or Sets Intelligence Attribute.</summary>
 
-        public int Intelligence { get; set; }
-        
+        public int Intelligence { get; set; } = 0;
+
         /// <summary>Gets or Sets Agility Attribute.</summary>
 
-        public int Agility { get; set; }
-        
+        public int Agility { get; set; } = 0;
+
         /// <summary>Gets or Sets Constitution Attribute.</summary>
 
-        public int Constitution { get; set; }
-        
+        public int Constitution { get; set; } = 0;
+
         /// <summary>Gets or Sets Strength Attribute.</summary>
 
-        public int Charisma { get; set; }        
+        public int Charisma { get; set; } = 0;
         
     }
 }

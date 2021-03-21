@@ -160,13 +160,13 @@ namespace CharacterCreator.ConsoleHost
             } while (true);
         }
 
-        static void  DeleteCharacter()
+        static bool  DeleteCharacter()
         {
             ViewCharacter();
-            //if (ReadBoolean("Are you sure you want to delete character (Y/N)? "))
-            //    return true;
+            if (ReadBoolean("Are you sure you want to delete character (Y/N)? "))
+                return true;
             
-            //return false;
+            return false;
         }
 
         static void EditCharacter()

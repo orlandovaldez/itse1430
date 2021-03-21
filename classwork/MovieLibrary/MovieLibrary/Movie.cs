@@ -141,7 +141,7 @@ namespace MovieLibrary
             //setter - void identifier ( T value ) 
             set // void set_Title ( string value ) 
             {
-                _title = value; 
+                _title = (value != null) ? value.Trim() : null; 
             }
         }
 
@@ -164,23 +164,28 @@ namespace MovieLibrary
        private string _description = "";
 
         /// <summary>Gets or Sets the release year.</summary>
-        public int ReleaseYear
-        {
-            get { return _releaseYear; }
-            set { _releaseYear = value; }
-        }
-       private int _releaseYear = 1900;
-       
+        // public int ReleaseYear 
+        // {
+        //     get { return _releaseYear; }
+        //     set { _releaseYear = value; }
+        // }
+        //private int _releaseYear = 1900;
+        public int ReleaseYear { get; set; } = 1900;
+
        /// <summary>Gets or Sets the run length.</summary>
-       public int RunLength
-        {
-            get { return _runLength; }
-            set { _runLength = value; }
-        }
-       private int _runLength;
-       
-       /// <summary>Gets or Sets the rating.</summary>
-       public string Rating
+        //public int RunLength //Full property syntax
+        // {
+        //     get { return _runLength; }
+        //     set { _runLength = value; }
+        // }
+        //private int _runLength;
+
+        //Auto property syntax - compiler will auto generate the full property
+        public int RunLength { get; set;}
+        //private int _runLength;
+
+        /// <summary>Gets or Sets the rating.</summary>
+        public string Rating
         {
             get { return (_rating != null) ? _rating : ""; }
             set { _rating = value; }
@@ -188,13 +193,22 @@ namespace MovieLibrary
        private string _rating = "";
        
         /// <summary>Gets or Sets if movie is a classic.</summary>
-       public bool IsClassic
-        {
-            get { return _isClassic; }
-            set { _isClassic = value; }
-        }
-       private  bool _isClassic;
+       public bool IsClassic { get; set; }
+       //public bool IsClassic
+       // {
+       //     get { return _isClassic; }
+       //     set { _isClassic = value; }
+       // }
+       //private  bool _isClassic;
 
-       private string _note;
+        // Auto properties can be setter or getter only if needed
+
+        public int Age { get; }
+
+        //Allowed to expose a field if const (constant)
+        public const int MinimumReleaseYear = 1900;
+
+        //public int Age { set; }
+       //private string _note;
     }
 }
