@@ -31,6 +31,27 @@ namespace MovieLibrary
     /// </remarks>
     public class Movie
     {
+        //CAVEAT: NOT NEEDED HERE - just demo
+        // Constructors - Create an instance of the type
+        //      Bare minimum to create an instance 
+        //      Method declaration with no return type and name is always the type name 
+        //      Use a contructor ONLY when field initializers will not work 
+        //        1. Non-primitive field that requires complex initialization
+        //        2. one field relies on the value of another field
+        //        3. (Depreciated) Allow creating and setting the most common properties
+        //        4. Allow settings of properies that are not writable
+        public Movie ()
+        {
+            //Initialize the fields that cannot be initialized using the field initializer syntax
+            _description = _title;
+        }
+
+        // Allows you to create the instance and set a common property all at once 
+        public Movie ( string title)
+        {
+            _title = title;
+        }
+
         //Methods - provide functinonality to a class (functions)
         //  Methods are verbs representing action
         //  Methods are alwatys Pascal Cased
@@ -40,11 +61,11 @@ namespace MovieLibrary
         //      never needed
 
         // Problems with fields 
-        // 1)Can be read or written at will 
-        // 2)Calculated and must be updated whenever variant values are changed
-        // 3)Can never be changed from int 
-        // 4)What happens if it is negative
-        // 5)Cannot initialize into another field
+        //   1)Can be read or written at will 
+        //   2)Calculated and must be updated whenever variant values are changed
+        //   3)Can never be changed from int 
+        //   4)What happens if it is negative
+        //   5)Cannot initialize into another field
         //public int AgeInYears = DateTime.Today - releaseYear;        
         //public int GetAgeInYears ()
         //{
@@ -58,6 +79,7 @@ namespace MovieLibrary
             {
                 if (DateTime.Now.Year < ReleaseYear)
                     return 0;
+
                 return DateTime.Today.Year - ReleaseYear;
             }
             //set { }
@@ -128,6 +150,17 @@ namespace MovieLibrary
         // Golden Rules:
         //  1) String and array properties never return null
 
+        // Null handling 
+        //     null coalescing operator ::= E ?? E
+        //        Find first non- null value
+        //        equivalent to (E1 != null) ? E1 : E2
+        //        left associative, can be combined (E1, ?? E2 ?? E3)
+        //        can still return null
+        //      null condition operator ::= E ?. member 
+        //        Evaluates expression and if instance is not null, invokes member, or skips if it is 
+        //        Expression is changed to nullable E, works with all types
+        //              int Hours(); instance?.Hours() => type of the expression is int || null
+
         /// <summary>Gets or sets the title.</summary>
         public string Title //()
         {
@@ -135,13 +168,14 @@ namespace MovieLibrary
             get // string get_Title()
             {
                 //Return title if not null or empty string otherwise
-                return (_title != null) ? _title : "";
+                return _title ?? "";    //return (_title != null) ? _title : "";
             }
             
             //setter - void identifier ( T value ) 
             set // void set_Title ( string value ) 
             {
-                _title = (value != null) ? value.Trim() : null; 
+                // _title = (value != null) ? value.Trim() : null; 
+                _title = value?.Trim() ??  "";
             }
         }
 
@@ -158,7 +192,8 @@ namespace MovieLibrary
         /// <summary>Gets or Sets the description.</summary>
        public string Description
         {
-            get { return (_description != null) ? _description : ""; }
+            //get { return (_description != null) ? _description : ""; }
+            get { return _description ?? ""; }
             set { _description = value; }
         }
        private string _description = "";
@@ -170,7 +205,8 @@ namespace MovieLibrary
         //     set { _releaseYear = value; }
         // }
         //private int _releaseYear = 1900;
-        public int ReleaseYear { get; set; } = 1900;
+        public int ReleaseYear { get; set; } = MinimumReleaseYear; // = 1900 
+        //public int ReleaseYear2 = 1900;
 
        /// <summary>Gets or Sets the run length.</summary>
         //public int RunLength //Full property syntax
@@ -187,7 +223,8 @@ namespace MovieLibrary
         /// <summary>Gets or Sets the rating.</summary>
         public string Rating
         {
-            get { return (_rating != null) ? _rating : ""; }
+            //get { return (_rating != null) ? _rating : ""; }
+            get { return _rating ?? ""; }
             set { _rating = value; }
         }
        private string _rating = "";
@@ -203,10 +240,24 @@ namespace MovieLibrary
 
         // Auto properties can be setter or getter only if needed
 
-        public int Age { get; }
+        public int Age { get; } // = 10;
+        //private readonly int _age;
+
+        // Demo of mixed accessibility
+        //  1. Can only be applied to the setter or the getter, not both
+        //  2. Access modifier must be more restrictive than the property
+        public int RestrictedProperty
+        {
+            get;
+            private set;
+        }
+        internal int InternalProperty { get; private set; }
 
         //Allowed to expose a field if const (constant)
+        //      const - glorified, names literal; value baked in to usage at compile time ( primitive and value will never change)
+        //      readonly - const named variable; value referenced at runtime( non primitve, only option)
         public const int MinimumReleaseYear = 1900;
+        public readonly DateTime MinimumReleaseDate = new DateTime(1900, 1, 1); //cannot be used when constant needed, readonly value only known at runtime
 
         //public int Age { set; }
        //private string _note;

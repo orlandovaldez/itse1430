@@ -120,11 +120,16 @@ namespace MovieLibrary.ConsoleHost
         //Get movie from user
         static void AddMovie ()
         {
+            // Object creation 
+            // 1. Allocates memory to store class fields
+            // 2. All fields are initialized to default or field initialzer 
+            // 3. Calls constructor 
+            // Only 1 contructor will ever be called
+
             // new T(); 
             // Movie* movie = new Movie();
-            Movie movie = new Movie();
-
-            
+            Movie movie;
+            movie = new Movie();            
             
             //Member access operator
             //  member-access ::= E . Member
@@ -137,7 +142,7 @@ namespace MovieLibrary.ConsoleHost
              movie.Description = Console.ReadLine();
 
             Console.Write("Enter a release year: ");
-             movie.ReleaseYear = ReadInt32(1900);
+             movie.ReleaseYear = ReadInt32(Movie.MinimumReleaseYear);
 
             Console.Write("Enter the run length in minutes: ");
              movie.RunLength = ReadInt32(-1);
@@ -597,6 +602,50 @@ namespace MovieLibrary.ConsoleHost
             // descriptive verbs ( e.g. Get ... , Display ... , Calculate ... ) 
             // Use Pascal casing 
             // No abbreveations or acronyms unless they are well known ( good: ok, bad: nbr, num)
+        }
+
+        static void DemoTypeChecking()
+        {
+            //Type checking - programmer determining type of an expression
+            //Type casting - programmer tells compiler type of expression
+            //Type coercian - compiler dtermines type of expression
+
+            double payRate = 7.5;
+            int pay;
+
+            //Type checking (should never be used)
+            //  1. C-style cast ::= (T)E
+            //      Crashes if invalid
+            //      Always compiler verified
+            pay = (int)payRate;
+
+            // 2. as operator ::= E as T
+            //      converts an expression to the given type, if valid or null otherwise 
+            object m = null;
+            Program p;
+            //p = (Program)m;
+            p = m as Program;   //At runtime if m is compatible with Program, returns m as a Program else returns null
+            if (p != null)
+            {
+                //Do something with result
+            };
+
+            // 3. is operator ::= E is T => bool
+            //      type checking, not type casting 
+            //      works with all types 
+            if (m is Program)
+            {
+                p = (Program)m;
+            };
+
+            // Preffered approach 
+            //  4. pattern matching operator ::= E is T id => bool
+            //      bool TryParse(out var result)
+            if (m is Program prog)
+            {
+                //prog is Program
+            };
+
         }
 
         //Data to collect - title, genre, release year, actors, runtime, director, rating
